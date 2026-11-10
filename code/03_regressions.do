@@ -1,4 +1,5 @@
-use "/Users/tanishakhabe/Desktop/PREDOC Program Summer 2024/Empirical Project/final_inventors_sc_oa_data.dta", clear
+// Run from the repository root.
+use "data/final_inventors_sc_oa_data.dta", clear
 
 // Regression #1: All SC measures vs. innovation. 
 // Innovationi = β0 + β1× Connectednessi + β2× Clusteringi + β3× Supporti  + β4× Volunteeringi  + β5× Civici +  εi 
@@ -65,7 +66,7 @@ estimates table top_quintile_results bottom_quintile_results, b(%9.3f) se(%9.3f)
 
 // Creating a coefficient plot to visualize the differences
 coefplot top_quintile_results bottom_quintile_results, drop(_cons) xline(0) title("Regression Coefficients: Top vs Bottom Quintile") 
-graph export top_bottom_quintile_comparison.png, replace
+graph export "figures/top_bottom_quintile_comparison.png", replace
 
 
 // Scatter plot of economic connectedness vs. innovation by parent income quintiles. 
@@ -74,7 +75,7 @@ twoway (scatter inventor ec_county if top_quintile==1, mcolor(blue)) ///
        legend(order(1 "Top Quintile of Parent Income" 2 "Bottom Quintile of Parent Income")) ///
        title("Economic Connected vs. Innovation by Parent Income in CZ") ///
        xtitle("Economic Connectedness") ytitle("Share of Inventors from CZ")
-graph export ec_income_quintiles_inventors.png, replace
+graph export "figures/ec_income_quintiles_inventors.png", replace
 
 
 // Regression #7: Only the significant SC measures & socioeconomic factors vs. top5cit of inventors. 
@@ -92,15 +93,15 @@ regress top5cit_thousand ec_county support_ratio_county frac_coll_plus2000 hhinc
 
 // Create histogram of top5cit per Thousand variable
 histogram top5cit_thousand, fraction bins(12) xlabel(0.1(0.1)1.251565) title("Top 5% Inventors per Thousand")
-graph export hist_top5cit.png, replace
+graph export "figures/hist_top5cit.png", replace
 
 // Graph scatterplot of economic connectedness vs. top5cit per Thousand
 twoway (scatter top5cit_thousand ec_county), title("Economic Connectedness vs. Top 5% Inventors") xtitle("Mean Economic Connectedness over CZ") ytitle("Children with Total Citations in Top 5% per Thousand")
-graph export scatter_ec_top5cit.png, replace
+graph export "figures/scatter_ec_top5cit.png", replace
 
 // Graph binned scatterplot of economic connectedness vs. top5cit per Thousand
 binscatter top5cit_thousand ec_county, title("Economic Connectedness vs. Top 5% Inventors") xtitle("Mean Economic Connectedness over CZ") ytitle("Children with Total Citations in Top 5% per Thousand")
-graph export binned_ec_top5cit.png, replace
+graph export "figures/binned_ec_top5cit.png", replace
 
 // Find top 10 commuting zones with highest shares of children in top 5%
 ssc install extremes
@@ -121,4 +122,4 @@ replace par_czname2 = "" if strpos(par_czname, "New York")
 
 // Graph scatterplot with top 10 commuting zones labelled
 scatter top5cit_thousand ec_county, title("Economic Connectedness vs. Top 5% Inventors") xtitle("Mean Economic Connectedness over CZ") ytitle("Children with Total Citations in Top 5% per Thousand") mlabel(par_czname2) mlabcolor(gs8)
-graph export scatter_ec_top5cit_labeled.png, replace
+graph export "figures/scatter_ec_top5cit_labeled.png", replace
