@@ -1,8 +1,8 @@
 # The Innovation Network
 
-## Poster
+*Empirical Project for Using Big Data to Solve Economic and Social Problems, Summer 2024*
 
-[View the project poster](https://drive.google.com/file/d/1V60TL5ReInIoz1xXVWha84zwfIwjgvFz/view)
+**Poster:** https://drive.google.com/file/d/1V60TL5ReInIoz1xXVWha84zwfIwjgvFz/view
 
 ## Overview
 
